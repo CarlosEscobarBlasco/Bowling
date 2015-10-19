@@ -56,12 +56,20 @@ public class ScoreBoard {
         }
 
         private boolean isComplete() {
-            return isSpare() ? hasThreeRolls() : hasTwoRolls();
+            return isCompleteBySpare() || isCompleteByStrike() || hasTwoRolls();
         }
+
+        private boolean isCompleteBySpare(){ return isSpare() && hasThreeRolls();}
+
+        private boolean isCompleteByStrike(){ return isStrike() && hasThreeRolls();}
 
         private boolean isSpare() {
             return hasTwoRolls() && (pinsInRoll(0) + pinsInRoll(1) == 10);
         }
+
+        private boolean isStrike(){return hasOneRoll() && pinsInRoll(0)==10;}
+
+        private boolean hasOneRoll() { return numberOfRolls()==1;}
 
         private Integer pinsInRoll(int index) {
             return rolls().get(initialRoll + index);
